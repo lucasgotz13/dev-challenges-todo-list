@@ -9,15 +9,15 @@ export function Completed({ items, setItems, handleChangeCheckbox }) {
     }
 
     return (
-        <div>
-            {completedItems.map((item: Item) => (
-                <div className="flex" key={item.id}>
-                    <li className={`${item.completed ? "line-through" : ""}`}>{item.name}</li>
-                    <input type="checkbox" onChange={() => handleChangeCheckbox(item)} checked={item.completed}></input>
-                    <button onClick={() => handleDelete(item)}>Delete</button>
+        <div className="flex flex-col items-end">
+            {items.length !== 0 ? completedItems.map((item: Item) => (
+                <div className="flex gap-5 mb-3" key={item.id}>
+                    <input type="checkbox" className="w-5" onChange={() => handleChangeCheckbox(item)} checked={item.completed}></input>
+                    <li className={`${item.completed ? "line-through" : ""} list-none text-[18px]`}>{item.name}</li>
+                    <span className="material-symbols-outlined hover:cursor-pointer" onClick={() => handleDelete(item)}>delete</span>
                 </div>
-            ))}
-            <button onClick={() => setItems([])}>DELETE ALL</button>
+            )) : <h1>You don't have any completed tasks!</h1>}
+            {items.length !== 0 && <button onClick={() => setItems([])} className="px-3 py-1 text-white bg-[#EB5757]">DELETE ALL</button>}
         </div>
     )
 }

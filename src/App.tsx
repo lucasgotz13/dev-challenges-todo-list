@@ -21,7 +21,8 @@ function App() {
     ])
 
     const handleAdd = (e: any) => {
-        e.preventDefault() 
+        e.preventDefault()
+        // @ts-ignore
         setItems(prev => {
             if (prev.length == 0) {
                 return setItems([{
@@ -52,14 +53,14 @@ function App() {
     }
 
     return (
-        <div className="font-Raleway p-20">
-            <h1 className="text-3xl text-center">To-do list</h1>
-            <div className="flex justify-center items-center">
-                <button onClick={() => setPage("all")} className={`p-5 border-2 border-white ${page === "all" ? "border-b-blue-500" : "border-b-white"}`}>All</button>
-                <button onClick={() => setPage("active")} className={`p-5 border-2 border-white ${page === "active" ? "border-b-blue-500" : "border-b-white"}`}>Active</button>
-                <button onClick={() => setPage("completed")} className={`p-5 border-2 border-white ${page === "completed" ? "border-b-blue-500" : "border-b-white"}`}>Completed</button>
+        <div className="font-Raleway flex flex-col justify-center items-center gap-5 p-12">
+            <h1 className="text-3xl text-center font-bold">#todo</h1>
+            <div className="flex gap-20">
+                <button onClick={() => setPage("all")} className={`p-3 ${page === "all" ? "border-b-4 border-b-blue-500" : "border-b-2 border-b-gray-500"}`}>All</button>
+                <button onClick={() => setPage("active")} className={`p-3 border-2 border-white ${page === "active" ? "border-4 border-b-blue-500" : "border-b-2 border-b-gray-500"}`}>Active</button>
+                <button onClick={() => setPage("completed")} className={`p-3 ${page === "completed" ? "border-4 border-b-blue-500" : "border-b-2 border-b-gray-500"}`}>Completed</button>
             </div>
-            <div>
+            <div className="flex flex-col items-start gap-5">
                 {page === "active" ? <Active items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} /> : page === "completed" ? <Completed items={items} handleChangeCheckbox={handleChangeCheckbox} setItems={setItems} /> : <All items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} />}
             </div>
         </div>
