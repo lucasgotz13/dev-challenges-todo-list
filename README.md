@@ -40,7 +40,7 @@
 - Where can I see your demo?
   - https://magical-kitsune-7a6ba7.netlify.app/
 - What was your experience?
-I think it was a pretty good experience. I haven't completed a project for the last month due to school so doing this simple but useful project helped me remember some of the concepts.
+   - I think it was a pretty good experience. I haven't completed a project for the last month due to school so doing this simple but useful project helped me remember some of the concepts.
 
 ### Built With
 
