@@ -6,7 +6,7 @@ import { All } from "./components/All.tsx"
 
 function App() {
     const [input, setInput] = useState<string>("")
-    const [page, setPage] = useState<PageType>("completed")
+    const [page, setPage] = useState<PageType>("all")
     const [items, setItems] = useState<Item[]>([
         {
             id: 1,
@@ -21,13 +21,23 @@ function App() {
     ])
 
     const handleAdd = (e: any) => {
-        // items.slice(-1)[0].id
-        setItems(prev => [...prev, {
-            id: items.slice(-1)[0].id + 1,
-            name: input,
-            completed: false
-        }])
-        e.preventDefault()
+        e.preventDefault() 
+        setItems(prev => {
+            if (prev.length == 0) {
+                return setItems([{
+                    id: 1,
+                    name: input,
+                    completed: false
+                }])
+            } else {
+                let index = items.slice(-1)[0].id ?? 0
+                return setItems([...prev, {
+                    id: index + 1,
+                    name: input,
+                    completed: false
+                }])
+            }
+        })
     }
 
     const handleChangeCheckbox = (currItem: Item) => {
@@ -40,29 +50,18 @@ function App() {
         })
         setItems(updatedItem)
     }
-    //@ts-ignore
 
     return (
-        <div classname="font-Raleway">
+        <div className="font-Raleway p-20">
             <h1 className="text-3xl text-center">To-do list</h1>
-            <div>
-                <p>All</p>
-                <p>Active</p>
-                <p>Completed</p>
+            <div className="flex justify-center items-center">
+                <button onClick={() => setPage("all")} className={`p-5 border-2 border-white ${page === "all" ? "border-b-blue-500" : "border-b-white"}`}>All</button>
+                <button onClick={() => setPage("active")} className={`p-5 border-2 border-white ${page === "active" ? "border-b-blue-500" : "border-b-white"}`}>Active</button>
+                <button onClick={() => setPage("completed")} className={`p-5 border-2 border-white ${page === "completed" ? "border-b-blue-500" : "border-b-white"}`}>Completed</button>
             </div>
-            {/* <form> */}
-            {/*     <input type="text" className="border-2" onChange={(e) => setInput(e.target.value)}></input> */}
-            {/*     <button type="submit" onClick={handleAdd}>Add</button> */}
-            {/* </form> */}
-            {/* <div> */}
-            {/*     {items.map((item) => ( */}
-            {/*         <div className="flex" key={item.id}> */}
-            {/*             <li className={`${item.completed ? "line-through" : ""}`}>{item.name}</li> */}
-            {/*             <input type="checkbox" onChange={() => handleChangeCheckbox(item)}></input> */}
-            {/*         </div> */}
-            {/*     ))} */}
-            {/* </div> */}
-            {page === "active" ? <Active items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} /> : page === "completed" ? <Completed items={items} handleChangeCheckbox={handleChangeCheckbox} /> : <All items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} />}
+            <div>
+                {page === "active" ? <Active items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} /> : page === "completed" ? <Completed items={items} handleChangeCheckbox={handleChangeCheckbox} setItems={setItems} /> : <All items={items} handleChangeCheckbox={handleChangeCheckbox} handleAdd={handleAdd} setInput={setInput} />}
+            </div>
         </div>
     )
 }

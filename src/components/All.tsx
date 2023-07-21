@@ -11,7 +11,7 @@ export function All({ items, setInput, handleAdd, handleChangeCheckbox }) {
                 {items.map((item: Item) => (
                     <div className="flex" key={item.id}>
                         <li className={`${item.completed ? "line-through" : ""}`}>{item.name}</li>
-                        <input type="checkbox" onChange={() => handleChangeCheckbox(item)}></input>
+                        <input type="checkbox" onChange={() => handleChangeCheckbox(item)} checked={item.completed}></input>
                     </div>
                 ))}
             </div>

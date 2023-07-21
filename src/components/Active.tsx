@@ -11,7 +11,7 @@ export function Active({ items, setInput, handleAdd, handleChangeCheckbox }) {
                 <button type="submit" onClick={handleAdd}>Add</button>
             </form>
             {filteredItems.map((item: Item) => (
-                <div className="flex" key={item.id}>
+                <div className="flex" key={item.name}>
                     <li className={`${item.completed ? "line-through" : ""}`}>{item.name}</li>
                     <input type="checkbox" onChange={() => handleChangeCheckbox(item)}></input>
                 </div>
